@@ -4,6 +4,8 @@ import ssl
 # Connection parameters for RabbitMQ on EC2 for producer
 #ec2_public_ip = 'YOUR_EC2_PUBLIC_IP'   # Replace 'YOUR_EC2_PUBLIC_IP' with the actual public IP address of your EC2 instance
 credentials = pika.PlainCredentials('myuser', 'mypassword')
+
+#  AWS is using AMQPS, you should add ssl_options to your connection parameters
 context = ssl.SSLContext(ssl.PROTOCOL_TLSv1_2)
 parameters = pika.ConnectionParameters(host='a-25c34e4d-a3eb-32de-abfg-l95d931afc72f.mq.eu-central-1.amazonaws.com',
                                        port=5671,
