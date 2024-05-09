@@ -1,7 +1,13 @@
 import pika
 
 # Connect to RabbitMQ server on AWS EC2 instance
-connection = pika.BlockingConnection(pika.ConnectionParameters('YOUR_EC2_PUBLIC_IP'))
+ec2_public_ip = 'YOUR_EC2_PUBLIC_IP'   # Replace 'YOUR_EC2_PUBLIC_IP' with the actual public IP address of your EC2 instance
+
+# Connection parameters for RabbitMQ on EC2 for producer
+credentials = pika.PlainCredentials('myuser', 'mypassword')
+parameters = pika.ConnectionParameters(ec2_public_ip, 5672, '/', credentials)
+connection = pika.BlockingConnection(parameters)
+#connection = pika.BlockingConnection(pika.ConnectionParameters(''amqp://myuser:mypassword@your-ec2-instance-public-ip''))
 channel = connection.channel()
 
 # Declare a queue named 'myqueue'
